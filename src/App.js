@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
   const [buttonColor, setButtonColor] = useState("red");
   const [disabled, setDisabled] = useState(false);
-  useEffect(() => {
-    console.log(disabled);
-  }, [disabled]);
 
   const newButtonColor = buttonColor === "red" ? "blue" : "red";
   return (
     <div>
       <button
-        style={{ backgroundColor: `${buttonColor}`, color: "white" }}
+        style={{
+          backgroundColor: disabled ? "gray" : buttonColor,
+          color: "white",
+        }}
         onClick={() => setButtonColor(newButtonColor)}
         disabled={disabled}
       >
@@ -24,7 +24,9 @@ function App() {
         id="disable-button-checkbox"
         defaultChecked={disabled}
         aria-checked={disabled}
-        onChange={(e) => setDisabled(e.target.checked)}
+        onChange={(e) => {
+          setDisabled(e.target.checked);
+        }}
       />
       <label htmlFor="disable-button-checkbox">Disable button</label>
     </div>
